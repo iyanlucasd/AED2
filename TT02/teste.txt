@@ -1,0 +1,6 @@
+iyan eh lindo
+1
+5,300000
+X
+true
+Algoritmos

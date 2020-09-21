@@ -1,0 +1,77 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-aleatorio<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "aleatorio",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-algebraBool<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "algebraBool",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-arquivo<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "arquivo",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-cifraDeCesar<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "cifraDeCesar",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-is<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "is",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-isRec<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "isRec",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-palindromoEmJava<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "palindromoEmJava",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-palindromoEmJavaRec<tp1_461e667a>",
+            "request": "launch",
+            "mainClass": "palindromoEmJavaRec",
+            "projectName": "tp1_461e667a"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Palindromo",
+            "request": "launch",
+            "mainClass": "Palindromo"
+        }
+    ]
+}

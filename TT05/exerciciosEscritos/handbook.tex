@@ -1,0 +1,216 @@
+\documentclass[12pt]{article}
+
+\usepackage{listings}
+\usepackage{graphicx,url}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
+\title{Handbook de Somatórios}
+\author{Iyan Lucas Duarte Marques}
+\begin{document}
+\maketitle
+\section{Siglas e abreviações}
+\begin{itemize}
+\item $S_n$ somatório (ou soma) até o número natural n
+\item $a_i$ ou $b_i$ é o termo correspondente ao índice i na posição descrita, usado dessa forma 
+para simbolizar um número/constante genérica
+\item As seguintes notações significam a mesma coisa:
+    \begingroup
+    \LARGE
+    \begin{equation}
+        \sum_{0}^{n}i == \sum_{0\leq i\leq n}
+    \end{equation}
+    \endgroup
+
+\end{itemize}
+
+
+\section{Fórmulas e propriedades}
+\subsection{Distributividade}
+Permite mover constantes para dentro ou para fora de um somatório:
+
+\begingroup
+\LARGE
+\begin{equation}
+\sum_{i\in I}(c*a_i) = c*\sum_{i\in I}a_i
+\end{equation}
+\endgroup
+\subsection{Associatividade}
+Permite quebrar um somatório em duas partes ou combinar dois Somatórios em um:
+
+\begingroup
+\LARGE
+\begin{equation}
+\sum_{i\in I}(a_i+b_i) = \sum_{i\in I}a_i + \sum_{i\in I}b_i
+\end{equation}
+\endgroup
+
+\subsection{Comutatividade}
+Permite colocar os termos em qualquer ordem:
+\begingroup
+\LARGE
+\begin{equation}
+\sum_{i\in I}a_i = \sum_{p(i)\in I}a_{p(i)}
+\end{equation}
+\endgroup
+
+\subsection{Progressão Aritmética (PA)}
+A Progressão Aritmética (P.A.) é uma sequência de números onde a diferença entre dois termos consecutivos é sempre a mesma. Essa diferença constante é chamada de razão da P.A..
+
+Sendo assim, a partir do segundo elemento da sequência, os números que surgem são resultantes da soma da constante com o valor do elemento anterior.
+
+\subsubsection{Termo Geral}
+$a_n = a_1+(n-1)*r$
+
+$a_n$ : termo que queremos calcular
+
+$a_1$: primeiro termo da P.A.
+
+n: posição do termo que queremos descobrir
+
+r: razão
+\subsubsection{Soma de uma PA}
+\begin{itemize}
+    \item Equação "normal": 
+        \begingroup
+        \LARGE
+        \begin{equation}
+            S_n = \frac{(a_1+a_n)*n}{2}
+        \end{equation}
+        \endgroup
+        $S_n$: soma dos n primeiros termos da P.A.
+
+        $a_1$: primeiro termo da P.A.
+        
+        $a_n$: ocupa a enésima posição na sequência
+        
+        $n$: posição do termo
+    \item somatório: 
+        \begingroup
+        \LARGE
+        \begin{equation}
+            S_n = \sum_{0\leq i\leq n}[a+b*i]
+        \end{equation}
+        \endgroup
+        $S_n$: soma dos n primeiros termos da P.A.
+
+        $a$: termo inicial
+
+        $b$: razão
+
+        $i$: posição do índice
+
+        $n$: limite do índice
+    \item Equação baseada no somatório:
+        \begingroup 
+        \LARGE
+        \begin{equation}
+            S_n = \frac{(2a+bn)(n+1)}{2}
+        \end{equation}
+        \endgroup
+        A legenda é a mesma do somatório.
+\end{itemize}
+\subsection{Conjuntos Numéricos (P1)}
+Combina Somatórios de índice diferentes. No caso se os conjuntos A e B são dois
+conjuntos quaisquer de inteiros:
+
+\begingroup 
+\LARGE
+\begin{equation}
+\sum_{i\in A}a_i + \sum_{i\in B}a_i = \sum_{i\in A\cap B}a_i + \sum_{i\in A\cup B}a_i
+\end{equation}
+\endgroup
+Se $A = {1,2,3}$ e $B = {3,5,7}$, então, $A\cup B = {1,2,3,4,5,7}$ e $A\cap B = {3}$
+\par Observe que a união garante todos os elementos e a interseção, os repetidos.
+
+\subsection{Pertubação (P2)}
+Dada uma soma genérica qualquer $S_n = \sum_{0\leq i\leq n}a_i$
+podemos reescrever $S_{n+1 = a_0 +a_1 +a_2 +\dots+ a_{n+1}}$
+de duas formas:
+\begin{enumerate}
+    \item Forma:
+        \begingroup 
+        \LARGE
+        \begin{equation}
+            S_{n+1}=S_n + a_{n+1}
+        \end{equation}
+        \endgroup
+    \item Forma
+        \begingroup 
+        \LARGE
+        \begin{equation}
+            S_{n+1} = a_0 + \sum_{0\leq i\leq n}a_{i+1}
+        \end{equation}
+        \endgroup
+\end{enumerate}
+\par Na prática, para perturbar o somatório, resolvemos a seguinte igualdade abaixo:
+\begingroup 
+\LARGE
+\begin{equation}
+    S_{n} + a_{n+1} = a_0 + \sum_{0\leq i\leq n}a_{i+1}
+\end{equation}
+\endgroup
+(A junção das duas equações acima).
+Isso, frequentemente, resulta na equação fechada para $S_n$.
+\subsection{$i*x^i$}
+Quando um somatório tiver o índice i multiplicado por uma constante
+elevada ao índice, teremos esta fórmula:
+
+\begingroup
+\LARGE
+\begin{equation}
+    S_n = \sum_{0\leq i\leq n}i*x^i = (n-1)*x^{n+1} + x
+\end{equation}
+\endgroup
+\subsection{somatório de 1}
+\begingroup 
+\LARGE
+\begin{equation}
+\sum_{0\leq i \leq n}1
+\end{equation}
+\endgroup
+O somatório de 1 é sempre $(n+1)$
+\subsection{$a_i$}
+Seja um somatório:
+\begingroup 
+\LARGE
+\begin{equation}
+S_n = \sum_{0\leq i\leq n}a*x^i
+\end{equation}
+\endgroup
+Para descobrir a constante multiplicada (a), faz-se a seguinte fórmula:
+\begingroup 
+\LARGE
+\begin{equation}
+a_i = a*x^i
+\end{equation}
+\endgroup
+\subsection{Somas Múltiplas}
+Outra forma de representação é utilizando dois Somatórios, por exemplo:
+\begingroup 
+\LARGE
+\begin{equation}
+\sum_{1\leq i,j\leq 3}a_ib_j = (\sum_{1\leq i\leq 3}a_i)(\sum_{1\leq j\leq 3}b_j)
+\end{equation}
+\endgroup
+\subsection{Somatório de i}
+\begingroup 
+\LARGE
+\begin{equation}
+\sum_0^ni=\frac{n(n+1)}{2}
+\end{equation}
+\endgroup
+\section{Prova por Indução}
+\begin{enumerate}
+    \item Passo (passo base): Provar que a fórmula é verdadeira para o primeiro valor
+    (na equação, substitua n pelo primeiro valor).
+    \item Passo (Indução propriamente dita): Supondo que $n>0$ e que a fórmula é verdadeira quando trocamos n por (n-1).
+    \begingroup 
+\LARGE
+\begin{equation}
+S_n = S_{n-1} + a_n
+\end{equation}
+\endgroup
+\end{enumerate}
+
+\end{document}

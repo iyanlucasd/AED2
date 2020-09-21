@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template} 
+\usepackage{graphicx,url} 
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{black}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true,
+  showspaces=false,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  backgroundcolor=\color{white},
+  breakautoindent=true,
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4
+}
+\pagestyle{empty}
+
+\title{Fundamentos de Análise de Algorítmos}
+\author{Iyan Lucas Duarte Marques\inst{1}}
+\address{Instituto de Ciências Exatas e Informática - Pontifícea Universid ade Católica Minas Gerais
+(PUC-MG)}
+
+\begin{document}
+\maketitle
+
+\section{Teoria da complexidade}
+A teoria da complexidade é um estudo amplo, multidisciplinar o qual o foco é o estudo dos sistemas dinâmicos não-lineares.
+Sistemas esse cujo comportamento é imprevisível.
+Possui aplicações em áreas como a meteorologia, pêndulos, formações rochosas e no cérebro humano.
+Esta teoria foi concebida por Edgar Morin e é utilizada como base para a teoria do caos, em sistemas complexos adaptativos e principalmente na Teoria da Complexidade Computacional.
+\subsection{Classes de Problemas P}
+    P é o acrônimo para tempo polinomial determinísticos, que mostra um conjunto de problemas que podem ser resolvidos em tempo polinomial por uma máquina de Turing.
+    Qualquer problema deste conjunto pode ser resolvido por um algorítmo com tempo de execução $O(n^k)$, sendo k uma constante.
+        \subsubsection{Definição}
+            Uma linguagem está em P se e somente se existe uma máquina de Turing M que:
+            \begin{itemize}
+                \item M roda em tempo polinomial para todas as entradas
+                \item Para cada x em L, M gera 1
+                \item Para cada x que não está em L, M gera 0
+            \end{itemize} 
+        \subsubsection{Problemas Notáveis em P}
+            \begin{itemize}
+                \item Máximo Divisor Comum
+            \end{itemize}
+    \subsection{Classes de Problemas NP}
+        NP é um acrônimo para Tempo Polinomial não Determinístico, que é o conjunto de problemas que são decidíveis em tempo não polinomial por uma máquina de Turing não determinística.
+        \subsubsection{Definição}
+            São os problemas que não possuem (ainda) um tempo polinomial de resolução, ou que levam mais do que um tempo viável para serem solucionados, basicamente são problemas que tem que ser testados por tentativa e erro, porque não há um meio melhor para resolvê-los.
+            Entretanto um problema da classe NP, pode vir a se tornar um problema P. 
+        \subsubsection{Problemas Notáveis em NP}
+            \begin{itemize}
+                \item Problema do Caixeiro Viajante
+                \item Problema do Isomorfismo
+                \item Problema do Roteamento de Veículos
+            \end{itemize}
+
+    \subsection{Classes de Problemas NP Completos}
+        O NP-Completo é um subconjunto de NP. 
+        Um problema $p$ em NP também está em NPC se e somente se todos os outros problemas em NP podem ser transformados em $p$ em tempo polinomial.
+        Problemas NP-completo são estudados porque a habilidade de rapidamente verificar soluções para um problema (NP) parece correlacionar-se com a capacidade de resolver rapidamente esse problema (P). Não é sabido se todos os problemas em NP podem ser rapidamente resolvidos - isso é chamado de problema P versus NP. Mas se qualquer problema em NP-completo pode ser resolvido rapidamente, então todo problema em NP também pode ser, por causa da definição de NP-completo afirma que todo problema em NP deve ser rapidamente redutível para todo problema em NP-completo (ou seja, pode ser reduzido em tempo polinomial). Por causa disso, é geralmente falado que os problemas NP-completo são mais difíceis que os problemas NP em geral.
+        \subsubsection{Definição}
+            Um problema de decisão c é NP-Completo se:
+            \begin{enumerate}
+                \item c está em NP e
+                \item Todo problema em NP é redutível para c em tempo polinomial.
+            \end{enumerate}
+
+\end{document}
+

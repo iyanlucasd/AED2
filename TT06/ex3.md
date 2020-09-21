@@ -1,0 +1,2 @@
+# O Selection Sort é mais barato
+O custo de processamento do Selection Sort é fixo, **diferente** do Insertion que o seu custo de processamento **cresce** de acordo com o tamanho e ordenação dos vetores!

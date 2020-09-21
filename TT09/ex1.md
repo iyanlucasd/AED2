@@ -1,0 +1,2 @@
+# A complexidade é Θ(n²)!
+O custo também é O(n²*lg n) pelo fato de a notação big-O, admite valores tais que sejam **maiores** do que Θ(n), mesma coisa a notação Ômega. Sendo que a notação admite valores **menores** que Θ(n).  

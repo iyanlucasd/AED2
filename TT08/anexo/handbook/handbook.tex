@@ -1,0 +1,104 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template} 
+\usepackage{graphicx,url} 
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{black}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true,
+  showspaces=false,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  backgroundcolor=\color{white},
+  breakautoindent=true,
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4
+}
+\pagestyle{empty}
+
+\title{Fundamentos de Análise de Algorítmos}
+\author{Iyan Lucas Duarte Marques\inst{1}}
+\address{Instituto de Ciências Exatas e Informática - Pontifícea Universid ade Católica Minas Gerais
+(PUC-MG)}
+
+\begin{document}
+\maketitle
+\section{Handbook}
+    \subsection{Notas da aula}
+    \begin{itemize}
+        \item Em um comando de repetição, com i começando em 0, sendo repetido enquanto i $<$ n, é incrementado de 1 em 1 (i++), faremos n operações.
+        \item Na computação, quando reduzimos o nosso escopo de busca, sistematicamente pela metade (i /= 2) teremos um custo logarítmico.
+        \item Em AED2, a menos que dito o contrário, a operação mais relevante será a comparação entre elementos do array. if(array[i] $<$ array[i+1]).
+        \item O número mínimo de comparações para ordenar um vetor é $\Theta n(\log_2n)$ isso, para situações genéricas e sem “roubar”.
+        \item Um algoritmo é estável se os elementos com a mesma chave mantiverem a ordem original.
+        \item Quando tivermos uma estrutura de repetição começado com a e repete enquanto menor do que n, e sendo incrementado de 1 em 1, teremos n - a repetições.
+        Por exemplo, temos o caso normal que é $i = 0;(i < n)$, teremos n operações, mas se $i = 1;(i < n)$, teremos $n - 1$ operações.
+
+
+    \end{itemize}
+    \subsection{Cenários Possíveis}
+        \subsubsection{Melhor Caso}
+            Menor "tempo de execução" para todas as entradas possíveis de tamanho n.
+        \subsubsection{Pior Caso}
+            Maior "tempo de execução" para todas as entradas possíveis.    
+    \subsection{Contagem de Operações com Condicional}
+        \subsubsection{Melhor Caso} É a condição (o parêntese do if, por exemplo) mais o mínimo
+        \subsubsection{Pior Caso}
+        \subsubsection{Melhor Caso} É a condição (o parêntese do if, por exemplo) mais o máximo
+    \subsection{Contagem de operações com Repetição}
+        Será o custo da condição mais o número de interações multiplicado pela soma dos custos da condição e da lista a ser repetida.
+        Por exemplo, condição$() + n*($lista$()+$condição$())$
+    \subsection{Restrição de Algorítmos}
+        \begin{itemize}
+            \item Restrições do computador: Capacidade computacional e armazenamento.
+            \item Um algorítmo que leva séculos para terminar é uma opção inadequada.
+        \end{itemize}
+    \subsection{Métricas (o que devemos analisar)}
+        \begin{itemize}
+            \item Tempo de execução
+            \item Espaço de memória ocupado
+            \item Outros
+        \end{itemize}
+\section{Como Medir o Custo de um Algorítmo}
+    \subsection{Modelo Matemático}
+        Determinamos e contamos as operações relevantes porque o custo total de um algorítmo é igual a soma das suas operações.
+        Depois disso, desconsideramos sobrecargas de gerenciamento de memória ou E/S, após isso, é definir a função de complexidade. 
+        A menos que dito o contrário, consideramos o pior caso.
+    \subsection{Funções de Complexidade}
+        \begin{itemize}
+            \item Função de Complexidade de Tempo: Mede o tempo (número de execuções da operação relevante) de execução do algorítmo para problema de tamanho n.
+            \item Função de Complexidade de espaço: Mede a quantidade de memória necessária para executar um algorítmo de tamanho n.
+        \end{itemize}
+\section{Como Calcular a Complexidade de um Algorítmo}
+    \subsection{Calculo de Complexidade para Condicional}
+        Será o custo da condição mais ou o da lista de verdadeira ou da falsa.
+    \subsection{Calculo de Complexidade para Repetição}
+    Será o custo da condição mais o número de iterações multiplicadas pela soma dos custos a ser repetida.
+\section{Notações $O, \Omega $ e $ \Theta$}
+Nesta notação, consideramos apenas a maior potência e ignoramos os coeficientes.
+Sendo $O$ o limite superior, $\Omega$ o limite inferior e $\Theta$ o limite justo.
+        \subsection{Diferença entre as notações}
+            \subsubsection{$O$} É o limite superior, logo, se um algorítmo é $O(f(n))$, ele também será $O(g(n))$ para toda função $g(n)$ tal que seja maior que $f(n)$
+            \subsubsection{$\Omega$} É o limite inferior, logo, se um algorítmo é $\Omega(f(n))$, ele também será $\Omega(g(n))$ para toda função $g(n)$ tal que seja menor que $f(n)$
+            \subsubsection{$\Theta$} É o limite justo, logo, se $g(n)$ é $O(f(n))$ e $\Omega(f(n))$ se e somente se $g(n)$ é $\Theta(f(n))$
+
+\end{document}
