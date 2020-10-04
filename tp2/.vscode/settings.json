@@ -1,0 +1,17 @@
+{
+    "cSpell.language": "pt-BR,en",
+    "cSpell.enableFiletypes": [
+        "bat",
+        "bibtex",
+        "bibtex-style",
+        "bsv",
+        "clojure",
+        "coffeescript",
+        "diff",
+        "dockerfile",
+        "doctex",
+        "fsharp",
+        "log"
+    ],
+    "cSpell.enabled": false
+}
