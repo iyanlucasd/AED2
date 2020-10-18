@@ -176,48 +176,59 @@ class Jogador {
 
 }
 
-public class exHeap extends Jogador {
+public class exQuickPar extends Jogador {
     // 0,Curly Armstrong,180,77,Indiana University,1918,,
     // 93,Wah Wah,180,77,,1921,,
-    public static void sort(){
-        int tamanho = array.length;
-        int i = tamanho / 2, pai, filho;
-        Jogador t;
-        while (true){
-            if (i > 0){
-                i--; t = array[i];
-            }else{
-                tamanho--;
-                if (tamanho <= 0) {return;}
-                t = array[tamanho];
-                array[tamanho] = array[0];
+    public static void swap(int i, int j) {
+        Jogador temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    public static void sort(int esq, int dir, int k) {
+        int i = esq, j = dir;
+        Jogador pivo = array[(dir + esq) / 2];
+        while (i <= j) {
+            while (array[i].getEstadoNascimento().compareTo(pivo.getEstadoNascimento()) < 0
+                    || array[i].getEstadoNascimento().compareTo(pivo.getEstadoNascimento()) == 0
+                            && array[i].getNome().compareTo(pivo.getNome()) < 0)
+                i++;
+            while (array[j].getEstadoNascimento().compareTo(pivo.getEstadoNascimento()) > 0
+                    || array[j].getEstadoNascimento().compareTo(pivo.getEstadoNascimento()) == 0
+                            && array[j].getNome().compareTo(pivo.getNome()) > 0)
+
+                j--;
+            if (i <= j) {
+                swap(i, j);
+                i++;
+                j--;
             }
-            pai = i;
-            filho = ((i * 2) + 1);
-            while (filho < tamanho){
-                if ((filho + 1 < tamanho) && (array[filho + 1].getAltura() > array[filho].getAltura())) {filho++;}
-                if (array[filho].getAltura() > t.getAltura()){
-                    array[pai] = array[filho];
-                    pai = filho;
-                    filho = pai * 2 + 1;
-                }else {break;}
-            }
-            array[pai] = t;
+        }
+        if (esq < j)
+            sort(esq, j, k);
+        if (i < k && i < dir) {
+            sort(i, dir, k);
         }
     }
 
-    public static void desempate() {
-        for (int i = 1; i < countGlobal; i++) {
-            int j = i - 1;
-            Jogador tmp = array[i];
-            String anoTmp = tmp.getNome();
-            while ((j >= 0) && array[j].getNome().compareTo(anoTmp) > 0) {
-                array[j + 1] = array[j];
-                j--;
+    public static void desempate(int n) {
+
+        Jogador temp;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (array[i].getEstadoNascimento().compareTo(array[j].getEstadoNascimento()) == 0) {
+                    if (array[i].getNome().compareTo(array[j].getNome()) > 0) {
+                        temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                } else {
+                    j = n;
+                }
             }
-            array[j + 1] = tmp;
         }
-    }   
+    }
 
     public static void main(String[] args) throws Exception {
         String[] arrayID = new String[3922];
@@ -237,10 +248,10 @@ public class exHeap extends Jogador {
             countGlobal++;
         }
 
-        desempate();
-        sort();
+        sort(0, countGlobal - 1, 10);
         i = 0;
-        while (i < countGlobal) {
+        // System.out.println(countGlobal);
+        while (i < 10) {
             array[i].imprimir();
             i++;
 

@@ -138,7 +138,7 @@ class Jogador {
         if (s.charAt(aux - 1) == ',') {
             s += "nao informado";
         }
-     
+
         String[] sSplit = s.split(",");
         if (sSplit[0] != null) {
             int ID = Integer.parseInt(sSplit[0]);
@@ -166,6 +166,8 @@ class Jogador {
             String[] sSplit = s.split(",");
             if (sSplit[0].equals(id) == true) {
                 tratamento(s);
+            } else if ((sSplit[0].equals("222") && id.equals("223"))) {
+                tratamento(s);
             }
             s = file.readLine();
         }
@@ -174,20 +176,95 @@ class Jogador {
 
 }
 
-public class ex01 extends Jogador {
+public class exHeap extends Jogador {
     // 0,Curly Armstrong,180,77,Indiana University,1918,,
     // 93,Wah Wah,180,77,,1921,,
 
-    public static void main(String[] args) throws Exception {
-        String arrayID = "";
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "ISO-8859-1"));
-        arrayID = br.readLine();
-        while (arrayID.equals("FIM") == false) {
-            array[countGlobal] = new Jogador();
-            array[countGlobal].ler(arrayID);
-            array[countGlobal].imprimir();
-            countGlobal++;
-            arrayID = br.readLine();
+    public static void swap(int i, int j) {
+        Jogador tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    
+      }
+
+    public static void heapify(int n, int i) {
+        int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+    
+        // if left child is larger than root
+        if (l < n){ 
+          if( array[l].getAltura() > array[largest].getAltura()  ){ 
+          largest = l;
+      }
+       if(array[r].getAltura() == array[largest].getAltura()&& array[r].getNome().compareTo(array[largest].getNome()) > 0){
+        largest = l;
+       }
+    }
+        // if right child is larger than largest so far
+        if (r < n) {
+          if (array[r].getAltura() > array[largest].getAltura()) {
+    
+            largest = r;
+          }
+          if (array[r].getAltura() == array[largest].getAltura()&& array[r].getNome().compareTo(array[largest].getNome()) > 0) {
+            largest = r;
+    
+            
+          }
         }
+    
+        // if largest is not root
+        if (largest != i) {
+          swap(i, largest);
+    
+          // recursively heapify the affected sub-tree
+          heapify(n, largest);
+        }
+      }
+    
+      public static void sort() {
+        // build heap (rearrange array)
+        for (int i = countGlobal / 2 - 1; i >= 0; i--)
+          heapify(countGlobal, i);
+    
+        // one by one extract an element from heap
+        for (int i = countGlobal - 1; i >= 0; i--) {
+          // move current root to end
+          swap(0, i);
+    
+          // call max heapify on the reduced heap
+          heapify(i, 0);
+        }
+      }  
+
+    public static void main(String[] args) throws Exception {
+        String[] arrayID = new String[3922];
+        int i = 0;
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "ISO-8859-1"));
+        arrayID[i] = br.readLine();
+        while (arrayID[i].equals("FIM") == false) {
+            i++;
+            arrayID[i] = br.readLine();
+        }
+
+        while (countGlobal < i) {
+            array[countGlobal] = new Jogador();
+            array[countGlobal].ler(arrayID[countGlobal]);
+            // array[countGlobal].imprimir();
+            countGlobal++;
+        }
+
+        sort();
+        sort();
+
+        i = 0;
+        while (i < countGlobal) {
+            array[i].imprimir();
+            i++;
+
+        }
+
     }
 }

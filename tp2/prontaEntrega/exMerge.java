@@ -185,65 +185,81 @@ public class exMerge extends Jogador {
         array[j] = temp;
     }
 
-    private static void mergesort(int esq, int dir) {
-        if (esq < dir) {
-            int meio = (esq + dir) / 2;
-            mergesort(esq, meio);
-            mergesort(meio + 1, dir);
-            intercalar(esq, meio, dir);
-        }
-    }
-
-    /**
-     * Algoritmo que intercala os elementos entre as posicoes esq e dir
-     * 
-     * @param int esq inicio do array a ser ordenado
-     * @param int meio posicao do meio do array a ser ordenado
-     * @param int dir fim do array a ser ordenado
-     */
-    public static void intercalar(int esq, int meio, int dir) {
-        int n1, n2, i, j, k;
-
-        // Definir tamanho dos dois subarrays
-        n1 = meio - esq + 1;
-        n2 = dir - meio;
-
-        Jogador[] a1 = new Jogador[n1 + 1];
-        Jogador[] a2 = new Jogador[n2 + 1];
-
-        // Inicializar primeiro subarray
-        for (i = 0; i < n1; i++) {
-            a1[i] = array[esq + i];
-        }
-
-        // Inicializar segundo subarray
-        for (j = 0; j < n2; j++) {
-            a2[j] = array[meio + j + 1];
-        }
-
-        // Intercalacao propriamente dita
-        for (i = j = 0, k = esq; k <= dir; k++) {
-            array[k] = (a1[i].getUniversidade().compareTo(a2[j].getUniversidade()) <= 0) ? a1[i++] : a2[j++];
-            // array[k] = (a1[i] <= a2[j]) ? a1[i++] : a2[j++];
-        }
-    }
-
     public static void desempate() {
-        for (int i = 1; i < countGlobal; i++) {
-            int j = i - 1;
-            Jogador tmp = array[i];
-            String anoTmp = tmp.getNome();
-            while ((j >= 0) && array[j].getNome().compareTo(anoTmp) > 0) {
-                array[j + 1] = array[j];
-                j--;
+
+        Jogador temp;
+
+        for (int i = 0; i < countGlobal; i++) {
+            for (int j = i + 1; j < countGlobal; j++) {
+                if (array[i].getUniversidade().compareTo(array[j].getUniversidade()) == 0) {
+                    if (array[i].getNome().compareTo(array[j].getNome()) > 0) {
+                        temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                } else {
+                    j = countGlobal;
+                }
             }
-            array[j + 1] = tmp;
         }
     }
+
     public static void sort() {
-        desempate();
-        mergesort(0, countGlobal-1);
-     }
+        ordena(0, countGlobal - 1);
+    }
+
+    public static void ordena(int indiceInicio, int indiceFim) {
+        // Condicional que verifica a validade dos parametros passados.
+
+        if (array != null && indiceInicio < indiceFim && indiceInicio >= 0 && indiceFim < array.length && array.length != 0) {
+            int meio = ((indiceFim + indiceInicio) / 2);
+            ordena(indiceInicio, meio);
+            ordena(meio + 1, indiceFim);
+
+            mergesort(indiceInicio, meio, indiceFim);
+        }
+
+    }
+
+    public static void mergesort(int indiceInicio, int meio, int indiceFim) {
+        Jogador[] temp = new Jogador[array.length];
+        // Copiando o trecho da lista que vai ser ordenada
+        for (int i = indiceInicio; i <= indiceFim; i++) {
+            temp[i] = array[i];
+        }
+
+        // Indices auxiliares
+        int i = indiceInicio;
+        int j = meio + 1;
+        int k = indiceInicio;
+
+        // Juncao das listas ordenadas
+        while (i <= meio && j <= indiceFim) {
+            if (temp[i].getUniversidade().compareTo(temp[j].getUniversidade()) <= 0) {
+                array[k] = temp[i];
+                i++;
+            } else {
+                array[k] = temp[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Append de itens que nao foram usados na Juncao
+        while (i <= meio) {
+            array[k] = temp[i];
+            i++;
+            k++;
+        }
+
+        // Append de itens que nao foram usados na Juncao
+        while (j <= indiceFim) {
+            array[k] = array[j];
+            j++;
+            k++;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         String[] arrayID = new String[3922];
         int i = 0;
@@ -262,6 +278,8 @@ public class exMerge extends Jogador {
             countGlobal++;
         }
         i = 0;
+        sort();
+        desempate();
         // System.out.println(countGlobal);
         while (i < countGlobal) {
             array[i].imprimir();

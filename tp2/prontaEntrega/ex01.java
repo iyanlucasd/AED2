@@ -1,4 +1,3 @@
-package prontaEntrega;
 import java.io.*;
 
 class Jogador {

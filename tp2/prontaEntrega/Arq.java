@@ -1,4 +1,3 @@
-package prontaEntrega;
 import java.io.*;
 import java.util.Formatter;
 import java.util.Scanner;
