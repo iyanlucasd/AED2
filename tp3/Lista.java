@@ -177,6 +177,7 @@ class Lista {
 
 	/**
 	 * Calcula e retorna o tamanho, em numero de elementos, da lista.
+        System.out.println(lista.tamanho());
 	 * @return resp int tamanho
 	 */
    public int tamanho() {

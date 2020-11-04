@@ -187,9 +187,11 @@ public class listaAlocSeq extends Jogador{
             arrayID = br.readLine();
         }
         Lista lista = new Lista();
-        for (int i = 0; i < array.length; i++) {
+        System.out.println(lista.tamanho());
+        for (int i = 0; i < countGlobal; i++) {
             lista.inserirFim(array[i]);
         }
-        lista.mostrar(countGlobal);
+        System.out.println(lista.tamanho());
+        // lista.mostrar(countGlobal);
     }
 }
