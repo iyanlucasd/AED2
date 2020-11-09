@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 class Jogador {
     public static Jogador[] array = new Jogador[1024];
@@ -113,9 +114,7 @@ class Jogador {
 
     // imprimir
     public void imprimir() {
-        System.out.print("[");
-        System.out.print(getId());
-        System.out.print(" ## ");
+        System.out.print("## ");
         System.out.print(getNome());
         System.out.print(" ## ");
         System.out.print(getAltura());
@@ -129,7 +128,7 @@ class Jogador {
         System.out.print(getCidadeNascimento());
         System.out.print(" ## ");
         System.out.print(getEstadoNascimento());
-        System.out.println("]");
+        System.out.println(" ##");
     }
 
     public void tratamento(String s) {
@@ -138,7 +137,7 @@ class Jogador {
         if (s.charAt(aux - 1) == ',') {
             s += "nao informado";
         }
-     
+
         String[] sSplit = s.split(",");
         if (sSplit[0] != null) {
             int ID = Integer.parseInt(sSplit[0]);
@@ -169,12 +168,62 @@ class Jogador {
             }
             s = file.readLine();
         }
-
     }
-
 }
 
-public class listaAlocSeq extends Jogador{
+public class listaFlexAlocSeq extends Jogador {
+
+    public static Jogador pesquisar(String key) throws Exception {
+        array[countGlobal] = new Jogador();
+        array[countGlobal].ler(key);
+        // array[countGlobal].imprimir();
+        countGlobal++;
+        // achei.imprimir();
+        return array[countGlobal - 1];
+    }
+
+    public static void tratamentoOps(ListaFlex listaFlex, String arrayOps) throws Exception {
+        String[] sOpsSplit = new String[3];
+        sOpsSplit = arrayOps.split(" ");
+        if (sOpsSplit[0].charAt(1) == '*') {
+            // System.out.println("1");
+            if (sOpsSplit[0].charAt(0) == 'I') {
+                int pos = Integer.parseInt(sOpsSplit[1]);
+                listaFlex.inserir(pesquisar(sOpsSplit[2]), pos);
+            } else {
+                int key = Integer.parseInt(sOpsSplit[1]);
+                Jogador temp = listaFlex.remover(key);
+                System.out.println("(R) " + temp.getNome());
+            }
+
+        } else {
+            if (sOpsSplit[0].charAt(0) == 'I') {
+                switch (sOpsSplit[0]) {
+                    case "II":
+                        listaFlex.inserirInicio(pesquisar(sOpsSplit[1]));
+                        break;
+                    case "IF":
+                        listaFlex.inserirFim(pesquisar(sOpsSplit[1]));
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                switch (sOpsSplit[0]) {
+                    case "RI":
+                    Jogador temp = listaFlex.removerInicio();
+                    System.out.println("(R) " + temp.getNome());
+                        break;
+                    case "RF":
+                    Jogador temp2 = listaFlex.removerFim();
+                    System.out.println("(R) " + temp2.getNome());
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         String arrayID = "";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "ISO-8859-1"));
@@ -186,12 +235,23 @@ public class listaAlocSeq extends Jogador{
             countGlobal++;
             arrayID = br.readLine();
         }
-        Lista lista = new Lista();
-        System.out.println(lista.tamanho());
+        ListaFlex listaFlex = new ListaFlex();
+        String numOps = br.readLine();
+        int numeroDeOps = Integer.parseInt(numOps);
+        // System.out.println(numeroDeOps);
+        // System.out.println(numOps);
         for (int i = 0; i < countGlobal; i++) {
-            lista.inserirFim(array[i]);
+            listaFlex.inserirFim(array[i]);
         }
-        System.out.println(lista.tamanho());
-        // lista.mostrar(countGlobal);
+        String arrayOps[] = new String[numeroDeOps];
+        for (int i = 0; i < numeroDeOps; i++) {
+            arrayOps[i] = br.readLine();
+            // System.out.println(arrayOps[i]);
+        }
+        for (int i = 0; i < numeroDeOps; i++) {
+            // System.out.println(arrayOps[i]);
+            tratamentoOps(listaFlex, arrayOps[i]);
+        }
+        listaFlex.mostrar();
     }
 }

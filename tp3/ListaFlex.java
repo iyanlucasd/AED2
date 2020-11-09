@@ -3,14 +3,14 @@
  * @author Max do Val Machado
  * @version 2 01/2015
  */
-class Lista {
+class ListaFlex {
 	private Celula primeiro;
 	private Celula ultimo;
 
 	/**
 	 * Construtor da classe que cria uma lista sem elementos (somente no cabeca).
 	 */
-	public Lista() {
+	public ListaFlex() {
 		primeiro = new Celula();
 		ultimo = primeiro;
 	}
@@ -150,11 +150,12 @@ class Lista {
 	/**
 	 * Mostra os elementos da lista separados por espacos.
 	 */
-	public void mostrar(int x) {
+	public void mostrar() {
 		int j = 0;
-		for (Celula i = primeiro.prox; i != null && j < x; i = i.prox) {
-			i.elemento.imprimir();
+		for (Celula i = primeiro.prox; i != null; i = i.prox) {
+			System.out.print("["+j+"] ");
 			j++;
+			i.elemento.imprimir();
 		}
 	}
 
