@@ -1,10 +1,19 @@
+// -----------define-----------
 #include <string>
 #include <cstring>
 #include <iostream>
 #include <algorithm>
+#include <err.h>
+
+#define MAXTAM 150
+#define bool short
+#define true 1
+#define false 0
+#define cleanBuffer while (getchar() != '\n')
 
 using namespace std;
 
+// -----------classe-----------
 class Jogador
 {
 private:
@@ -18,7 +27,7 @@ private:
     string estadoNascimento = "";
 
 public:
-    Jogador(/* args */)
+    Jogador()
     {
         id = 0;
         nome = "";
@@ -130,9 +139,9 @@ public:
         cout << " ## ";
         cout << getCidadeNascimento();
         cout << " ## ";
-        cout << getEstadoNascimento();
-        cout << " ##";
-        cout << endl;
+        string tmp = getEstadoNascimento();
+        cout << tmp << " ##\n";
+        // cleanBuffer;
     }
 
     string ReplaceAll(std::string str, const std::string &from, const std::string &to)
@@ -149,8 +158,8 @@ public:
     void tratamento(string s)
     {
         string nova = ReplaceAll(s, ",,", ",nao informado,");
-        int aux = nova.length();
-        if (nova.at(aux - 1) == ',')
+        int aux = s.length();
+        if (s.at(aux - 1) == ',')
         {
             nova += "nao informado";
         }
@@ -170,7 +179,12 @@ public:
         nova.erase(0, nova.find(delimiter) + delimiter.length());
         string cidadeDeNascimento = nova.substr(0, nova.find(delimiter));
         nova.erase(0, nova.find(delimiter) + delimiter.length());
-        string estadoDeNascimento = nova.substr(0, nova.find(delimiter));
+        string estadoDeNascimento = nova.substr(0, nova.find("\n"));
+        if (estadoDeNascimento == "")
+        {
+            estadoDeNascimento += "nao informado";
+        }
+        
         setId(stoi(Id));
         setNome(Nome);
         setAltura(stoi(Altura));
@@ -209,8 +223,143 @@ public:
     }
 };
 
+// -----------lista-----------
+
+//TIPO CELULA ===================================================================
+typedef struct Celula {
+	Jogador elemento;        // Elemento inserido na celula.
+	struct Celula* prox; // Aponta a celula prox.
+} Celula;
+
+Celula* novaCelula(Jogador elemento) {
+   Celula* nova = (Celula*) malloc(sizeof(Celula));
+   nova->elemento = elemento;
+   nova->prox = NULL;
+   return nova;
+}
+
+//FILA PROPRIAMENTE DITA ========================================================
+Celula* primeiro;
+Celula* ultimo;
+
+
+/**
+ * Cria uma fila sem elementos (somente no cabeca).
+ */
+void start () {
+   primeiro = novaCelula(array[0]);
+   ultimo = primeiro;
+}
+
+
+/**
+ * Insere elemento na fila (politica FIFO).
+ * @param x int Elemento a inserir.
+ */
+void inserir(Jogador x) {
+   ultimo->prox = novaCelula(x);
+   ultimo = ultimo->prox;
+}
+
+
+/**
+ * Remove elemento da fila (politica FIFO).
+ * @return Elemento removido.
+ */
+Jogador remover() {
+   if (primeiro == ultimo) {
+      errx(1, "Erro ao remover!");
+   }
+   Celula* tmp = primeiro;
+   primeiro = primeiro->prox;
+   Jogador resp = primeiro->elemento;
+   tmp->prox = NULL;
+   free(tmp);
+   tmp = NULL;
+   return resp;
+}
+
+
+/**
+ * Mostra os elementos separados por espacos.
+ */
+void mostrar() {
+   Celula* i;
+   printf("[ ");
+   for (i = primeiro; i != NULL; i = i->prox) {
+      i->elemento.imprimir();
+   }
+   printf("] \n");
+}
+
+// -----------tratamento-----------
 static Jogador array[1024];
 static int countGlobal = 0;
+
+Jogador pesquisar(string key)
+{
+    array[countGlobal].ler(key);
+    countGlobal++;
+    return array[countGlobal - 1];
+}
+
+void tratamentoOps(string arrayOps)
+{
+    string delimiter = " ";
+    string op = arrayOps.substr(0, arrayOps.find(delimiter));
+    arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
+    if (op.at(1) == '*')
+    {
+        if (op.at(0) == 'I')
+        {
+            string tmp = arrayOps.substr(0, arrayOps.find(delimiter));
+            arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
+            string key = arrayOps.substr(0, arrayOps.find(delimiter));
+            int pos = stoi(tmp);
+            inserir(pesquisar(key), pos);
+        }
+        else
+        {
+            // cout << arrayOps << "\n";
+            string tmp = arrayOps.substr(0, arrayOps.find(delimiter));
+            arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
+            // cout << "chegou " << tmp << "\n";
+            int pos = stoi(tmp);
+            cout << "(R) " << remover(pos).getNome() << "\n";
+        }
+    }
+    else
+    {
+        if (op.at(0) == 'I')
+        {
+            if (op == "II")
+            {
+                string tmp = arrayOps.substr(0, arrayOps.find(delimiter));
+                arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
+                inserirInicio(pesquisar(tmp));
+            }
+            else
+            {
+                string tmp = arrayOps.substr(0, arrayOps.find(delimiter));
+                arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
+                inserirFim(pesquisar(tmp));
+            }
+        }
+        else
+        {
+            if (op == "RI")
+            {
+                cout << "(R) " << removerInicio().getNome() << "\n";
+            }
+            else
+            {
+                cout << "(R) " << removerFim().getNome() << "\n";
+            }
+        }
+    }
+}
+
+// -----------main-----------
 
 int main(void)
 {
@@ -224,7 +373,26 @@ int main(void)
     }
     for (int i = 0; i < countGlobal; i++)
     {
-        array[i].imprimir();
+        // array[i].imprimir();
     }
-    
+    string numOps = "";
+    cin >> numOps;
+    int nops = stoi(numOps);
+    string arrayOps[nops];
+    for (int i = 0; i < countGlobal; i++)
+    {
+        inserirFim(array[i]);
+    }
+
+    for (int i = 0; i <= nops; i++)
+    {
+        getline(cin, arrayOps[i]);
+    }
+    // cout << "chegou" << "\n";
+    for (int i = 1; i <= nops; i++)
+    {
+        // cout << arrayOps[i] << "\n";
+        tratamentoOps(arrayOps[i]);
+    }
+    mostrar();
 }
