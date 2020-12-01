@@ -1,121 +1,4 @@
 import java.io.*;
-import java.util.*;
-
-/**
- * Pilha dinamica
- * 
- * @author Max do Val Machado
- * @version 2 01/2015
- */
-
-class Celula {
-    public Jogador elemento; // Elemento inserido na celula.
-    public Celula prox; // Aponta a celula prox.
-
-    /**
-     * Construtor da classe.
-     */
-    public Celula() {
-
-    }
-
-    /**
-     * Construtor da classe.
-     * 
-     * @param elemento int inserido na celula.
-     */
-    public Celula(Jogador elemento) {
-        this.elemento = elemento;
-        this.prox = null;
-    }
-}
-
-class Pilha {
-    private Celula topo;
-
-    /**
-     * Construtor da classe que cria uma fila sem elementos.
-     */
-    public Pilha() {
-        topo = null;
-    }
-
-    /**
-     * Insere elemento na pilha (politica FILO).
-     * 
-     * @param x int elemento a inserir.
-     */
-    public void inserir(Jogador x) {
-        Celula tmp = new Celula(x);
-        tmp.prox = topo;
-        topo = tmp;
-        tmp = null;
-    }
-
-    /**
-     * Remove elemento da pilha (politica FILO).
-     * 
-     * @return Elemento removido.
-     * @trhows Exception Se a sequencia nao contiver elementos.
-     */
-    public Jogador remover() throws Exception {
-        if (topo == null) {
-            throw new Exception("Erro ao remover!");
-        }
-        Jogador resp = topo.elemento;
-        Celula tmp = topo;
-        topo = topo.prox;
-        tmp.prox = null;
-        tmp = null;
-        return resp;
-    }
-
-    /**
-     * Mostra os elementos separados por espacos, comecando do topo.
-     */
-    public void mostrar() {
-        int j = 0;
-        for (Celula i = topo; i != null; i = i.prox) {
-            System.out.print("[" + j + "] ");
-            i.elemento.imprimir();
-            j++;
-        }
-    }
-
-    // public Jogador getSoma() {
-    // return getSoma(topo);
-    // }
-
-    // private Jogador getSoma(Celula i) {
-    // Jogador resp = new Jogador();
-    // if (i != null) {
-    // resp += i.elemento. + getSoma(i.prox);
-    // }
-    // return resp;
-    // }
-
-    public Jogador getMax() {
-        Jogador max = topo.elemento;
-        for (Celula i = topo.prox; i != null; i = i.prox) {
-            if (i.elemento.getId() > max.getId())
-                max = i.elemento;
-        }
-        return max;
-    }
-
-    public void mostraPilha() {
-        mostraPilha(topo, 141);
-    }
-
-    private void mostraPilha(Celula i, int count) {
-        if (i != null) {
-            mostraPilha(i.prox, count - 1);
-            System.out.print("[" + count + "] ");
-            i.elemento.imprimir();
-        }
-    }
-
-}
 
 class Jogador {
     public static Jogador[] array = new Jogador[1024];
@@ -287,7 +170,7 @@ class Jogador {
     }
 }
 
-public class pilhaFlexAlocSeq extends Jogador {
+public class q1 extends Jogador {
 
     public static Jogador pesquisar(String key) throws Exception {
         array[countGlobal] = new Jogador();
@@ -298,16 +181,6 @@ public class pilhaFlexAlocSeq extends Jogador {
         return array[countGlobal - 1];
     }
 
-    public static void tratamentoOps(Pilha pilha, String arrayOps) throws Exception {
-        String[] sOpsSplit = new String[3];
-        sOpsSplit = arrayOps.split(" ");
-        if (arrayOps.charAt(0) == 'I') {
-            pilha.inserir(pesquisar(sOpsSplit[1]));
-        } else {
-            Jogador tmp = pilha.remover();
-            System.out.println("(R) " + tmp.getNome());
-        }
-    }
 
     public static void main(String[] args) throws Exception {
         String arrayID = "";
@@ -320,23 +193,6 @@ public class pilhaFlexAlocSeq extends Jogador {
             countGlobal++;
             arrayID = br.readLine();
         }
-        Pilha pilha = new Pilha();
-        String numOps = br.readLine();
-        int numeroDeOps = Integer.parseInt(numOps);
-        // System.out.println(numeroDeOps);
-        // System.out.println(numOps);
-        for (int i = 0; i < countGlobal; i++) {
-            pilha.inserir(array[i]);
-        }
-        String arrayOps[] = new String[numeroDeOps];
-        for (int i = 0; i < numeroDeOps; i++) {
-            arrayOps[i] = br.readLine();
-            // System.out.println(arrayOps[i]);
-        }
-        for (int i = 0; i < numeroDeOps; i++) {
-            // System.out.println(arrayOps[i]);
-            tratamentoOps(pilha, arrayOps[i]);
-        }
-        pilha.mostraPilha();
+        
     }
 }

@@ -211,12 +211,12 @@ public class listaAlocSeq extends Jogador {
             } else {
                 switch (sOpsSplit[0]) {
                     case "RI":
-                    Jogador temp = listaSeq.removerInicio();
-                    System.out.println("(R) " + temp.getNome());
+                        Jogador temp = listaSeq.removerInicio();
+                        System.out.println("(R) " + temp.getNome());
                         break;
                     case "RF":
-                    Jogador temp2 = listaSeq.removerFim();
-                    System.out.println("(R) " + temp2.getNome());
+                        Jogador temp2 = listaSeq.removerFim();
+                        System.out.println("(R) " + temp2.getNome());
                     default:
                         break;
                 }

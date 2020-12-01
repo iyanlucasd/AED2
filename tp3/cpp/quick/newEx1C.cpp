@@ -241,7 +241,7 @@ CelulaDupla *novaCelulaDupla(Jogador elemento)
 
 //LISTA PROPRIAMENTE DITA =======================================================
 
-static Jogador array[1024];
+static Jogador arrayJogador[1024];
 static int countGlobal = 0;
 
 CelulaDupla *primeiro;
@@ -252,7 +252,7 @@ CelulaDupla *ultimo;
  */
 void start()
 {
-    primeiro = novaCelulaDupla(array[0]);
+    primeiro = novaCelulaDupla(arrayJogador[0]);
     ultimo = primeiro;
 }
 
@@ -449,9 +449,9 @@ void mostrar()
 
 Jogador pesquisar(string key)
 {
-    array[countGlobal].ler(key);
+    arrayJogador[countGlobal].ler(key);
     countGlobal++;
-    return array[countGlobal - 1];
+    return arrayJogador[countGlobal - 1];
 }
 
 void tratamentoOps(string arrayOps)
@@ -513,31 +513,31 @@ void tratamentoOps(string arrayOps)
 
 void swap(int i, int j)
 {
-    Jogador temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+    Jogador temp = arrayJogador[i];
+    arrayJogador[i] = arrayJogador[j];
+    arrayJogador[j] = temp;
 }
 
 void quicksortRec(int esq, int dir)
 {
     int i = esq, j = dir;
-    Jogador pivo = array[(dir + esq) / 2];
+    Jogador pivo = arrayJogador[(dir + esq) / 2];
     Jogador temp;
     while (i <= j)
     {
-        while (array[i].getEstadoNascimento().compare(pivo.getEstadoNascimento()) < 0
-                    || array[i].getEstadoNascimento().compare(pivo.getEstadoNascimento()) == 0
-                            && array[i].getNome().compare(pivo.getNome()) < 0)
+        while (arrayJogador[i].getEstadoNascimento().compare(pivo.getEstadoNascimento()) < 0
+                    || arrayJogador[i].getEstadoNascimento().compare(pivo.getEstadoNascimento()) == 0
+                            && arrayJogador[i].getNome().compare(pivo.getNome()) < 0)
             i++;
-        while (array[j].getEstadoNascimento().compare(pivo.getEstadoNascimento()) > 0
-                    || array[j].getEstadoNascimento().compare(pivo.getEstadoNascimento()) == 0
-                            && array[j].getNome().compare(pivo.getNome()) > 0)
+        while (arrayJogador[j].getEstadoNascimento().compare(pivo.getEstadoNascimento()) > 0
+                    || arrayJogador[j].getEstadoNascimento().compare(pivo.getEstadoNascimento()) == 0
+                            && arrayJogador[j].getNome().compare(pivo.getNome()) > 0)
             j--;
         if (i <= j)
         {
-            temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            temp = arrayJogador[i];
+            arrayJogador[i] = arrayJogador[j];
+            arrayJogador[j] = temp;
             i++;
             j--;
         }
@@ -562,13 +562,13 @@ int main(void)
     cin >> arrayID;
     while (arrayID != "FIM")
     {
-        array[countGlobal].ler(arrayID);
+        arrayJogador[countGlobal].ler(arrayID);
         countGlobal++;
         cin >> arrayID;
     }
     for (int i = 0; i < countGlobal; i++)
     {
-        // array[i].imprimir();
+        // arrayJogador[i].imprimir();
     }
     sort();
 
@@ -576,7 +576,7 @@ int main(void)
 
     for (int i = 1; i < countGlobal; i++)
     {
-        inserirFim(array[i]);
+        inserirFim(arrayJogador[i]);
     }
 
     mostrar();

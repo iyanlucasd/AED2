@@ -407,14 +407,14 @@ bool pesquisar(Jogador x)
     return retorno;
 }
 // -----------tratamento-----------
-static Jogador array[1024];
+static Jogador arrayJogador[1024];
 static int countGlobal = 0;
 
 Jogador pesquisar(string key)
 {
-    array[countGlobal].ler(key);
+    arrayJogador[countGlobal].ler(key);
     countGlobal++;
-    return array[countGlobal - 1];
+    return arrayJogador[countGlobal - 1];
 }
 
 void tratamentoOps(string arrayOps)
@@ -481,13 +481,13 @@ int main(void)
     cin >> arrayID;
     while (arrayID != "FIM")
     {
-        array[countGlobal].ler(arrayID);
+        arrayJogador[countGlobal].ler(arrayID);
         countGlobal++;
         cin >> arrayID;
     }
     for (int i = 0; i < countGlobal; i++)
     {
-        // array[i].imprimir();
+        // arrayJogador[i].imprimir();
     }
     string numOps = "";
     cin >> numOps;
@@ -495,7 +495,7 @@ int main(void)
     string arrayOps[nops];
     for (int i = 0; i < countGlobal; i++)
     {
-        inserirFim(array[i]);
+        inserirFim(arrayJogador[i]);
     }
 
     for (int i = 0; i <= nops; i++)

@@ -4,36 +4,14 @@
  * @author Max do Val Machado
  * @version 2 01/2015
  */
-class Celula {
-	public Jogador elemento; // Elemento inserido na celula.
-	public Celula prox; // Aponta a celula prox.
-
-	/**
-	 * Construtor da classe.
-	 */
-	public Celula() {
-
-	}
-
-	/**
-	 * Construtor da classe.
-	 * 
-	 * @param elemento int inserido na celula.
-	 */
-	public Celula(Jogador elemento) {
-		this.elemento = elemento;
-		this.prox = null;
-	}
-}
-
-class ListaFlex {
+class Lista {
 	private Celula primeiro;
 	private Celula ultimo;
 
 	/**
 	 * Construtor da classe que cria uma lista sem elementos (somente no cabeca).
 	 */
-	public ListaFlex() {
+	public Lista() {
 		primeiro = new Celula();
 		ultimo = primeiro;
 	}
@@ -43,7 +21,7 @@ class ListaFlex {
 	 * 
 	 * @param x int elemento a ser inserido.
 	 */
-	public void inserirInicio(Jogador x) {
+	public void inserirInicio(int x) {
 		Celula tmp = new Celula(x);
 		tmp.prox = primeiro.prox;
 		primeiro.prox = tmp;
@@ -58,7 +36,7 @@ class ListaFlex {
 	 * 
 	 * @param x int elemento a ser inserido.
 	 */
-	public void inserirFim(Jogador x) {
+	public void inserirFim(int x) {
 		ultimo.prox = new Celula(x);
 		ultimo = ultimo.prox;
 	}
@@ -69,14 +47,14 @@ class ListaFlex {
 	 * @return resp int elemento a ser removido.
 	 * @throws Exception Se a lista nao contiver elementos.
 	 */
-	public Jogador removerInicio() throws Exception {
+	public int removerInicio() throws Exception {
 		if (primeiro == ultimo) {
 			throw new Exception("Erro ao remover (vazia)!");
 		}
 
 		Celula tmp = primeiro;
 		primeiro = primeiro.prox;
-		Jogador resp = primeiro.elemento;
+		int resp = primeiro.elemento;
 		tmp.prox = null;
 		tmp = null;
 		return resp;
@@ -88,7 +66,7 @@ class ListaFlex {
 	 * @return resp int elemento a ser removido.
 	 * @throws Exception Se a lista nao contiver elementos.
 	 */
-	public Jogador removerFim() throws Exception {
+	public int removerFim() throws Exception {
 		if (primeiro == ultimo) {
 			throw new Exception("Erro ao remover (vazia)!");
 		}
@@ -98,7 +76,7 @@ class ListaFlex {
 		for (i = primeiro; i.prox != ultimo; i = i.prox)
 			;
 
-		Jogador resp = ultimo.elemento;
+		int resp = ultimo.elemento;
 		ultimo = i;
 		i = ultimo.prox = null;
 
@@ -113,7 +91,7 @@ class ListaFlex {
 	 * @param pos int posicao da insercao.
 	 * @throws Exception Se <code>posicao</code> invalida.
 	 */
-	public void inserir(Jogador x, int pos) throws Exception {
+	public void inserir(int x, int pos) throws Exception {
 
 		int tamanho = tamanho();
 
@@ -144,8 +122,8 @@ class ListaFlex {
 	 * @return resp int elemento a ser removido.
 	 * @throws Exception Se <code>posicao</code> invalida.
 	 */
-	public Jogador remover(int pos) throws Exception {
-		Jogador resp;
+	public int remover(int pos) throws Exception {
+		int resp;
 		int tamanho = tamanho();
 
 		if (primeiro == ultimo) {
@@ -176,14 +154,29 @@ class ListaFlex {
 	/**
 	 * Mostra os elementos da lista separados por espacos.
 	 */
-	public void mostrar() {
+	public void mostrar(int pos) {
 		int j = 0;
-		for (Celula i = primeiro.prox; i != null; i = i.prox) {
-			System.out.print("[" + j + "] ");
-			j++;
-			i.elemento.imprimir();
+		int x = 0;
+		System.out.print("[ ");
+		for (Celula i = primeiro.prox; i != null && j <= pos; i = i.prox, j++) {
+			System.out.print(i.elemento + " ");
+			x = i.elemento;
 		}
+		System.out.println("] ");
+		System.out.println(x);
 	}
+
+	// método de retornar o numero da posição
+	// -----------------------------------------------
+	public int returnPos(int pos) {
+		int j = 0;
+		int x = 0;
+		for (Celula i = primeiro.prox; i != null && j <= pos; i = i.prox, j++) {
+			x = i.elemento;
+		}
+		return x;
+	}
+	// -----------------------------------------------
 
 	/**
 	 * Procura um elemento e retorna se ele existe.
@@ -192,7 +185,7 @@ class ListaFlex {
 	 * @return <code>true</code> se o elemento existir, <code>false</code> em caso
 	 *         contrario.
 	 */
-	public boolean pesquisar(Jogador x) {
+	public boolean pesquisar(int x) {
 		boolean resp = false;
 		for (Celula i = primeiro.prox; i != null; i = i.prox) {
 			if (i.elemento == x) {
@@ -205,7 +198,6 @@ class ListaFlex {
 
 	/**
 	 * Calcula e retorna o tamanho, em numero de elementos, da lista.
-	 * System.out.println(lista.tamanho());
 	 * 
 	 * @return resp int tamanho
 	 */
@@ -215,4 +207,5 @@ class ListaFlex {
 			;
 		return tamanho;
 	}
+
 }

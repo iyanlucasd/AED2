@@ -316,7 +316,7 @@ void tratamentoOps(string arrayOps)
             arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
             string key = arrayOps.substr(0, arrayOps.find(delimiter));
             int pos = stoi(tmp);
-            inserir(pesquisar(key), pos);
+            inserir(pesquisar(key));
         }
         else
         {
@@ -325,7 +325,7 @@ void tratamentoOps(string arrayOps)
             arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
             // cout << "chegou " << tmp << "\n";
             int pos = stoi(tmp);
-            cout << "(R) " << remover(pos).getNome() << "\n";
+            cout << "(R) " << remover().getNome() << "\n";
         }
     }
     else
@@ -336,24 +336,24 @@ void tratamentoOps(string arrayOps)
             {
                 string tmp = arrayOps.substr(0, arrayOps.find(delimiter));
                 arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
-                inserirInicio(pesquisar(tmp));
+                // inserirInicio(pesquisar(tmp));
             }
             else
             {
                 string tmp = arrayOps.substr(0, arrayOps.find(delimiter));
                 arrayOps.erase(0, arrayOps.find(delimiter) + delimiter.length());
-                inserirFim(pesquisar(tmp));
+                // inserirFim(pesquisar(tmp));
             }
         }
         else
         {
             if (op == "RI")
             {
-                cout << "(R) " << removerInicio().getNome() << "\n";
+                // cout << "(R) " << removerInicio().getNome() << "\n";
             }
             else
             {
-                cout << "(R) " << removerFim().getNome() << "\n";
+                // cout << "(R) " << removerFim().getNome() << "\n";
             }
         }
     }

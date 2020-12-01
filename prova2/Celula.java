@@ -1,21 +1,26 @@
+/**
+ * Celula (pilha, lista e fila dinamica)
+ * @author Max do Val Machado
+ * @version 2 01/2015
+ */
 class Celula {
-   public int elemento;
-   public Celula inf, sup, esq, dir;
+	public int elemento; // Elemento inserido na celula.
+	public Celula prox; // Aponta a celula prox.
 
-   public Celula(){
-      this(0, null, null, null, null);
-   }
 
-   public Celula(int elemento){
-      this(elemento, null, null, null, null);
-   }
+	/**
+	 * Construtor da classe.
+	 */
+	public Celula() {
+		this(0);
+	}
 
-   public Celula(int elemento, Celula inf, Celula sup, Celula esq, Celula dir){
+	/**
+	 * Construtor da classe.
+	 * @param elemento int inserido na celula.
+	 */
+	public Celula(int elemento) {
       this.elemento = elemento;
-      this.inf = inf;
-      this.sup = sup;
-      this.esq = esq;
-      this.dir = dir;
-   }
-
+      this.prox = null;
+	}
 }
