@@ -1,5 +1,153 @@
 import java.io.*;
 
+class no {
+    public int x; // x inserido na celula.
+    public no esq, dir; // Filhos da esq e dir.
+    public no2 nohDois;
+
+    public no(int x) {
+        this.x = x;
+        this.esq = this.dir = null;
+        this.nohDois = null;
+    }
+
+    public no(int x, no esq, no dir, no2 nohDois) {
+        this.x = x;
+        this.esq = esq;
+        this.dir = dir;
+        this.nohDois = nohDois;
+    }
+
+}
+
+class no2 {
+    public String x;
+    public no2 esq;
+    public no2 dir;
+
+    no2(String x) {
+        this.x = x;
+        this.esq = this.dir = null;
+    }
+
+    no2(String x, no2 esq, no2 dir) {
+        this.x = x;
+        this.esq = esq;
+        this.dir = dir;
+    }
+}
+
+class ArvoreArvore {
+    private no raiz;
+
+    public ArvoreArvore() {
+        raiz = null;
+    }
+
+    public boolean pesquisar(String x) {
+
+        if (raiz != null) {
+            System.out.print(" raiz");
+        }
+        return pesquisar(x, raiz);
+    }
+
+    private boolean pesquisar(String x, no i) {
+        boolean resp = false;
+        if (i != null) {
+
+            resp = pesquisar2(x, i.nohDois);
+
+            if (resp == false) {
+                System.out.print(" esq");
+                resp = pesquisar(x, i.esq);
+            }
+            if (resp == false) {
+                System.out.print(" dir");
+                resp = pesquisar(x, i.dir);
+            }
+        }
+
+        return resp;
+    }
+
+    private boolean pesquisar2(String x, no2 i) {
+        boolean resp = false;
+        if (i != null) {
+
+            if (x.compareTo(i.x) == 0) {
+                resp = true;
+
+            } else {
+
+                System.out.print(" ESQ");
+                resp = pesquisar2(x, i.esq);
+
+                if (resp == false) {
+                    System.out.print(" DIR");
+                    resp = pesquisar2(x, i.dir);
+                }
+            }
+        }
+        return resp;
+    }
+
+    public void inserir(int x) throws Exception {
+        raiz = inserir(x, raiz);
+    }
+
+    private no inserir(int x, no i) throws Exception {
+        if (i == null) {
+            i = new no(x);
+        } else if (x < i.x) {
+            i.esq = inserir(x, i.esq);
+
+        } else if (x > i.x) {
+            i.dir = inserir(x, i.dir);
+
+        } else {
+            throw new Exception("Erro ao inserir!");
+        }
+
+        return i;
+    }
+
+    public void inserir2(String x, int y) throws Exception {
+        inserir2(x, y, raiz);
+    }
+
+    private void inserir2(String x, int y, no i) throws Exception {
+        if (i.x == y) {
+            i.nohDois = inserir3(x, i.nohDois);
+        } else if (y < i.x) {
+            inserir2(x, y, i.esq);
+
+        } else if (y > i.x) {
+            inserir2(x, y, i.dir);
+
+        } else {
+            throw new Exception("Erro ao inserir!");
+        }
+
+    }
+
+    private no2 inserir3(String x, no2 i) throws Exception {
+
+        if (i == null) {
+            i = new no2(x);
+        } else if (x.compareTo(i.x) < 0)
+            i.esq = inserir3(x, i.esq);
+        else if (x.compareTo(i.x) > 0)
+            i.dir = inserir3(x, i.dir);
+        else {
+            throw new Exception("Erro ao inserir!");
+        }
+        return i;
+
+    }
+
+}
+
 class Jogador {
     public static Jogador[] array = new Jogador[1024];
     public static int countGlobal = 0;
@@ -170,7 +318,7 @@ class Jogador {
     }
 }
 
-public class q1 extends Jogador {
+public class q2 extends Jogador {
 
     public static Jogador pesquisar(String key) throws Exception {
         array[countGlobal] = new Jogador();
@@ -180,7 +328,6 @@ public class q1 extends Jogador {
         // achei.imprimir();
         return array[countGlobal - 1];
     }
-
 
     public static void main(String[] args) throws Exception {
         String arrayID = "";
@@ -193,6 +340,49 @@ public class q1 extends Jogador {
             countGlobal++;
             arrayID = br.readLine();
         }
-        
+        // System.out.println("chegou");
+        ArvoreArvore arvore = new ArvoreArvore();
+
+        arvore.inserir(7);
+        arvore.inserir(3);
+        arvore.inserir(11);
+        arvore.inserir(1);
+        arvore.inserir(5);
+        arvore.inserir(9);
+        arvore.inserir(12);
+        arvore.inserir(0);
+        arvore.inserir(2);
+        arvore.inserir(4);
+        arvore.inserir(6);
+        arvore.inserir(8);
+        arvore.inserir(10);
+        arvore.inserir(13);
+        arvore.inserir(14);
+
+        String arrayOps[] = new String[1024];
+        int count = 0;
+        arrayOps[count] = br.readLine();
+        while (arrayOps[count].equals("FIM") == false) {
+            // System.out.println("chegou");
+            count++;
+            arrayOps[count] = br.readLine();
+        }
+
+        for (int i = 0; i < countGlobal; i++) {
+            int val = array[i].getAltura() % 15;
+            arvore.inserir2(array[i].getNome(), val);
+        }
+
+        for (int i = 0; i < count; i++) {
+            System.out.print(arrayOps[i]);
+            if (arvore.pesquisar(arrayOps[i]) == true) {
+                System.out.print(" SIM");
+                System.out.println();
+            } else {
+                System.out.print(" NAO");
+                System.out.println();
+            }
+        }
+
     }
 }
