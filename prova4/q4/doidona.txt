@@ -1,0 +1,90 @@
+class Doidona {
+    int tamT1 = 100;
+    int tamT2 = 200;
+
+    CelulaT1[] t1;
+    HashT2.tab[] t2;
+
+    public Doidona() {
+        t1 = new CelulaT1[tamT1];
+        t2 = new HashT2.tab[tamT2];
+
+        for (int i = 0; i < tamT1; i++) {
+            t1[i] = null;
+        }
+        for (int i = 0; i < tamT2; i++) {
+            t2.tab[i] = null;
+        }
+    }
+
+    public int hashT1(int elemento) {
+        return elemento % tamT1;
+    }
+
+    public int hashT2(int elemento) {
+        return elemento % tamT2;
+    }
+
+    public int rehashT3(int elemento) {
+        return ++elemento %tamT2;
+    }
+
+
+    public void inserir(int elemento) {
+        int i = hashT1(elemento);
+        if (elemento == null) {
+            System.out.println("erro!");
+        } else if (t1[i] == null) {
+            t1[i] = elemento;
+        } else if (hashT2(elemento) == null) {
+            int i = hashT2(elemento);
+
+            if (t2.tab[i] == null) {
+                t2.tab[i] = elemento;
+            } else {
+                i = rehashT3(elemento);
+
+                if (t2.tab[i] == null) {
+                    t2.tab[i] = elemento;
+                } else {
+                    noRaizT3.inserir(elemento);
+                }
+            }
+        } else if (rehashT3(elemento) == 1) {
+            t2.ultimoT3.inserirFim(elemento);
+        } else if (rehashT3(elemento) == 2) {
+            t2.noRaizT3.inserir(elemento);
+        } else {
+            System.out.println("ERRO!!!!");
+        }
+    }
+
+    boolean pesquisar(int valor) {
+        boolean resp = false;
+        int pos = hashT1(valor);
+        if (t1[pos] == valor) {
+            resp = true;
+        } else {
+            pos = hashT2(valor);
+            if (pos == 0) {
+                pos = hashT2(valor);
+                if (t2.tab[pos] == valor) {
+                    resp = true;
+                } else {
+                    pos = rehashT3(valor);
+                    if (t2.tab[pos] == valor) {
+                        resp = true;
+                    } else {
+                        resp = noRaizT3.pesquisar(valor);
+                    }
+                }
+            } else if (pos == 1) {
+                resp = ultimoT3.pesquisar(valor);
+            } else {
+                resp = t2.noRaizT3.pesquisar(valor);
+            }
+        }
+        return resp;
+    }
+
+}

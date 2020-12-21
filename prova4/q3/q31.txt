@@ -1,0 +1,19 @@
+public boolean pesquisar(String prefixo) throws Exception {
+    return pesquisar(prefixo, raiz, 0);
+}
+
+
+public boolean pesquisar(String prefixo, No no, int i) throws Exception {
+    boolean trueOrFalse;
+    if(no.prox[prefixo.charAt(i)] == null){
+        trueOrFalse = false;
+    } else if(i == prefixo.length() - 1){
+        trueOrFalse = (no.prox[prefixo.charAt(i)].folha == true);
+    } else if(i < prefixo.length() - 1 ){
+        trueOrFalse = pesquisar(s, no.prox[prefixo.charAt(i)], i + 1);
+    } else {
+        throw new Exception("Erro ao pesquisar!");
+    }
+    return trueOrFalse;
+}
+
